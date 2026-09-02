@@ -76,7 +76,9 @@ class ProductQuerySchema(PaginationQueryArgsSchema):
     min_price = fields.Decimal(places=2)
     max_price = fields.Decimal(places=2)
     is_active = fields.Bool()
-    in_stock = fields.Bool(metadata={"description": "Only products with stock > 0"})
+    in_stock = fields.Bool(
+        metadata={"description": "true: only products in stock; false: only sold out"}
+    )
     sort_by = fields.Str(
         load_default="id",
         validate=validate.OneOf(["id", "name", "price", "stock", "created_at"]),

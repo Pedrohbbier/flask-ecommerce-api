@@ -23,8 +23,10 @@ def list_products(filters: dict) -> dict:
         query = query.filter(Product.price <= max_price)
     if (is_active := filters.get("is_active")) is not None:
         query = query.filter(Product.is_active.is_(is_active))
-    if filters.get("in_stock"):
-        query = query.filter(Product.stock > 0)
+    if (in_stock := filters.get("in_stock")) is not None:
+        # A boolean filter must work both ways: true -> available products,
+        # false -> products that are sold out.
+        query = query.filter(Product.stock > 0 if in_stock else Product.stock == 0)
 
     query = apply_sorting(query, Product, filters["sort_by"], filters["order"])
     return paginate(query, filters["page"], filters["per_page"])
