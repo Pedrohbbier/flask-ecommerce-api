@@ -85,4 +85,16 @@ class ProductQuerySchema(PaginationQueryArgsSchema):
     )
 
 
+class ProductByCategoryQuerySchema(ProductQuerySchema):
+    """Filters for GET /categories/<id>/products.
+
+    The category comes from the URL, so exposing a category_id query parameter
+    would both be ignored and collide with the path parameter of the same name
+    in the OpenAPI document.
+    """
+
+    class Meta:
+        exclude = ("category_id",)
+
+
 ProductListSchema = paginated_schema(ProductSchema, "ProductListSchema")

@@ -12,7 +12,7 @@ from app.schemas.category import (
     CategorySchema,
 )
 from app.schemas.common import ErrorSchema
-from app.schemas.product import ProductListSchema, ProductQuerySchema
+from app.schemas.product import ProductByCategoryQuerySchema, ProductListSchema
 from app.services import category_service, product_service
 
 
@@ -78,7 +78,7 @@ class CategoryProductsController(MethodView):
     """Endpoints of /api/v1/categories/<id>/products."""
 
     @blp.doc(tags=["Categories"], summary="List the products of a category")
-    @blp.arguments(ProductQuerySchema, location="query")
+    @blp.arguments(ProductByCategoryQuerySchema, location="query")
     @blp.response(200, ProductListSchema)
     @blp.alt_response(404, schema=ErrorSchema, description="Category not found")
     def get(self, filters, category_id):

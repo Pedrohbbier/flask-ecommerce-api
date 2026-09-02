@@ -18,6 +18,7 @@ from app.schemas.order import (
     OrderUpdateSchema,
 )
 from app.schemas.product import (
+    ProductByCategoryQuerySchema,
     ProductCreateSchema,
     ProductPatchSchema,
     ProductQuerySchema,
@@ -45,5 +46,6 @@ __all__ = [
     "ErrorSchema",
     "ErrorResponseSchema",
     "ProductSummarySchema",
+    "ProductByCategoryQuerySchema",
     "PaginationSchema",
 ]
